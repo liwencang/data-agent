@@ -1,7 +1,6 @@
 import asyncio
 from typing import Optional
 
-from aiohttp import payload
 from pydantic import StrictStr
 from qdrant_client import AsyncQdrantClient
 from qdrant_client.http.models import VectorParams, Distance, PointStruct, Filter, Condition, FieldCondition, MatchValue

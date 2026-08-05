@@ -26,9 +26,9 @@ class MysqlClientManager:
             expire_on_commit=True,
         )
 
-    def close(self):
+    async def close(self):
         if self.engine:
-            self.engine.dispose()
+            await self.engine.dispose()
 
 dw_mysql_client_manager = MysqlClientManager(app_config.db_dw)
 meta_mysql_client_manager = MysqlClientManager(app_config.db_meta)
