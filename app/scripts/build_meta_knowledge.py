@@ -14,6 +14,7 @@ from app.repositories.es.value_es_repository import ValueESRepository
 from app.repositories.mysql.dw.dw_mysql_repository import DWMySQLRepository
 from app.repositories.mysql.meta.meta_mysql_repository import MetaMySQLRepository
 from app.repositories.qdrant.column_qdrant_repository import ColumnQdrantRepository
+from app.repositories.qdrant.metric_qdrant_repository import MetricQdrantRepository
 from app.services.meta_knowledge_service import MetaKnowledgeService
 
 
@@ -41,9 +42,9 @@ async def build(config_path: Path):
     embedding_client = embedding_client_manager.embeddings
     es_client = es_client_manager.client
 
-    if qd_client is None :
+    if qd_client is None:
         logger.error("No QDrant client found")
-    if es_client is None :
+    if es_client is None:
         logger.error("No Elasticsearch client found")
     if qd_client and es_client and embedding_client:
         async with (dw_session_factory() as dw_session,
@@ -52,8 +53,8 @@ async def build(config_path: Path):
                 DWMySQLRepository(dw_session),
                 MetaMySQLRepository(meta_session),
                 ColumnQdrantRepository(qd_client),
+                MetricQdrantRepository(qd_client),
                 embedding_client,
-                ValueESRepository(es_client)
             )
             await meta_knowledge_service.build(config_path)
             await dw_client_manager.close()
