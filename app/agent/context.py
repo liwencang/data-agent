@@ -1,6 +1,4 @@
 from dataclasses import dataclass
-
-from langchain_openai import OpenAIEmbeddings
 from langgraph.types import StreamWriter
 
 from app.repositories.es.value_es_repository import ValueESRepository
