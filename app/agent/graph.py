@@ -61,7 +61,7 @@ builder.add_edge("filter_metric", "add_extra_context")
 builder.add_edge("add_extra_context", "generate_sql")
 builder.add_edge("generate_sql", "validate_sql")
 
-builder.add_conditional_edges("validate_sql", lambda state: "execute_sql" if state['error'] is None else "correct_sql", path_map={"correct_sql": "correct_sql", "execute_sql": "execute_sql"})
+builder.add_conditional_edges("validate_sql", lambda state: "execute_sql" if state.get('error') is None else "correct_sql", path_map={"correct_sql": "correct_sql", "execute_sql": "execute_sql"})
 
 builder.add_edge("correct_sql", "execute_sql")
 
@@ -109,4 +109,4 @@ if __name__ == "__main__":
 
     async def test_graph2():
         print(graph.get_graph().draw_mermaid())
-    asyncio.run(test_graph2())
+    asyncio.run(test_graph())

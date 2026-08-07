@@ -79,3 +79,7 @@
 2026-08-06 17:08:29.029 | INFO     | request_id - 1 | app.agent.nodes.extract_keywords:extract_keywords:11 - 抽取关键信息
 2026-08-06 17:09:44.833 | INFO     | request_id - 1 | app.agent.nodes.extract_keywords:extract_keywords:11 - 抽取关键信息
 2026-08-06 17:09:46.848 | INFO     | request_id - 1 | app.agent.nodes.recall_column:recall_column:13 - 召回字段信息
+2026-08-07 16:52:15.001 | ERROR    | request_id - 1 | app.agent.nodes.extract_keywords:extract_keywords:36 - 抽取关键字失败, 错误信息: TFIDF.extract_tags() got an unexpected keyword argument 'allow_pos'
+2026-08-07 16:53:14.032 | INFO     | request_id - 1 | app.agent.nodes.extract_keywords:extract_keywords:31 - 抽取关键字成功，关键字列表：['华北地区销售总额', '华北地区', '销售总额']
+2026-08-07 16:54:17.753 | INFO     | request_id - 1 | app.agent.nodes.extract_keywords:extract_keywords:31 - 抽取关键字成功，关键字列表：['华北地区销售总额', '销售总额', '华北地区']
+2026-08-07 16:56:10.066 | INFO     | request_id - 1 | app.agent.nodes.extract_keywords:extract_keywords:31 - 抽取关键字成功，关键字列表：['华北地区', '华北地区销售总额', '销售总额']
