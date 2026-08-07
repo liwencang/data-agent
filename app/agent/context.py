@@ -1,5 +1,6 @@
 from dataclasses import dataclass
-from langgraph.types import StreamWriter
+
+from langchain_openai import OpenAIEmbeddings
 
 from app.repositories.es.value_es_repository import ValueESRepository
 from app.repositories.mysql.dw.dw_mysql_repository import DWMySQLRepository
