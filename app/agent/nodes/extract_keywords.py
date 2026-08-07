@@ -1,15 +1,16 @@
-import asyncio
-
-from langgraph.config import get_stream_writer
-
+from langgraph.runtime import Runtime
+from app.agent.context import DataAgentContext
 from app.agent.state import DataAgentState
 from app.core.log import logger
 
 
-async def extract_keywords(state:DataAgentState):
-    # logger.info(state["query"])
-    logger.info("抽取关键信息")
-    writer = get_stream_writer()
-    writer({"type": "progress", "step": "抽取关键信息", "status": "running"})
-    await asyncio.sleep(2)
-    writer({"type": "progress", "step": "抽取关键信息", "status": "success"})
+async def extract_keywords(state: DataAgentState, runtime: Runtime[DataAgentContext]):
+    # 流写入器
+    writer = runtime.stream_writer
+    writer({"type": "progress", "step": "抽取关键字", "status": "running"})
+    try:
+        pass
+    except Exception as e:
+        writer({"type": "progress", "step": "抽取关键字", "status": "error"})
+        logger.error(f"抽取关键字失败, 错误信息: {str(e)}")
+        raise
