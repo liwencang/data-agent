@@ -73,3 +73,9 @@
 2026-08-05 17:54:49.504 | INFO     | request_id - 1 | __main__:build:24 - Building meta knowledge...
 2026-08-05 17:54:50.980 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:57 - 指标信息存入到meta元数据库成功
 2026-08-05 17:54:54.790 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:61 - 为指标信息建立向量索引成功
+2026-08-06 15:12:43.983 | INFO     | request_id - 1 | app.agent.nodes.extract_keywords:extract_keywords:6 - 华北地区销售总额
+2026-08-06 15:12:43.983 | INFO     | request_id - 1 | app.agent.nodes.extract_keywords:extract_keywords:7 - 抽取关键信息节点
+2026-08-06 17:05:21.432 | INFO     | request_id - 1 | app.agent.nodes.extract_keywords:extract_keywords:11 - 抽取关键信息
+2026-08-06 17:08:29.029 | INFO     | request_id - 1 | app.agent.nodes.extract_keywords:extract_keywords:11 - 抽取关键信息
+2026-08-06 17:09:44.833 | INFO     | request_id - 1 | app.agent.nodes.extract_keywords:extract_keywords:11 - 抽取关键信息
+2026-08-06 17:09:46.848 | INFO     | request_id - 1 | app.agent.nodes.recall_column:recall_column:13 - 召回字段信息
