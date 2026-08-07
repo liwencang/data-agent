@@ -1,0 +1,6 @@
+# 日志文件
+logs/
+*.log
+
+conf/
+app_config.yaml
