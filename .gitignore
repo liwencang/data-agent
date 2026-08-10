@@ -4,3 +4,63 @@ logs/
 
 conf/
 app_config.yaml
+
+# ===================== Python 通用 =====================
+__pycache__/
+dist/
+downloads/
+lib/
+lib64/
+*.pyc
+
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# 虚拟环境 (venv / uv / conda)
+venv/
+.venv/
+env/
+ENV/
+.conda/
+*.venv
+
+# ===================== LangGraph / AI Agent 专属 =====================
+# LangGraph 持久化存储（sqlite、checkpoint数据库，不要提交状态数据）
+*.sqlite
+*.sqlite3
+langgraph_checkpoints/
+checkpoints/
+graph_store/
+
+# LLM 缓存、向量数据库本地持久化
+.qdrant/
+chroma_db/
+faiss_index/
+*.faiss
+*.pkl
+*.pickle
+
+# 环境密钥配置！重要，所有存放API_KEY的文件
+.env
+.env.local
+.env.*.local
+.env.prod
+.env.dev
+
+# LangGraph studio 本地临时文件
+.langgraph/
+langgraph.json.local
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# PyCharm / Idea
+.idea/
+*.iml
+*.iws
+*.out
