@@ -26,13 +26,16 @@ class MetaKnowledgeService:
             meta_mysql_repository: MetaMySQLRepository,
             column_qdrant_repository: ColumnQdrantRepository,
             metric_qdrant_repository: MetricQdrantRepository,
+            value_es_repository: ValueESRepository,
             embedding_client: OpenAIEmbeddings
     ):
         self.dw_mysql_repository = dw_mysql_repository
         self.meta_mysql_repository = meta_mysql_repository
         self.column_qdrant_repository = column_qdrant_repository
-        self.embedding_client = embedding_client
         self.metric_qdrant_repository = metric_qdrant_repository
+        self.value_es_repository = value_es_repository
+        self.embedding_client = embedding_client
+
 
     async def build(self, config_path: Path):
         # 1. 通过OmegaConf读取元数据配置文件 得到需要同步表格信息、指标信息
@@ -41,15 +44,15 @@ class MetaKnowledgeService:
         meta_config: MetaConfig = OmegaConf.to_object(OmegaConf.merge(schema, context))
         # 2. 处理表格信息
         # 2.1 表、列信息存储到 mysql
-        # if meta_config.tables:
-        #     column_infos: List[ColumnInfo] = await self._save_table_info_to_meta_db(meta_config)
-        #     logger.info(f"批量保存表信息成功")
-        #     # 2.2 存储字段信息到qdrant
-        #     await self._save_column_info_to_qdrant(column_infos)
-        #     logger.info(f"为字段信息建立向量索引成功")
-        #     # 2.3 存储字段信息到es
-        #     await self._save_value_info_to_es(meta_config, column_infos)
-        #     logger.info(f"为字段取值建立全文索引成功 ")
+        if meta_config.tables:
+            column_infos: List[ColumnInfo] = await self._save_table_info_to_meta_db(meta_config)
+            logger.info(f"保存表信息到mysql成功")
+            # 2.2 存储字段信息到qdrant
+            await self._save_column_info_to_qdrant(column_infos)
+            logger.info(f"为字段信息建立向量索引成功")
+            # 2.3 存储字段信息到es
+            await self._save_value_info_to_es(meta_config, column_infos)
+            logger.info(f"为字段取值建立全文索引成功 ")
         if meta_config.metrics:
             # 3.1 将指标信息存入到meta元数据库
             metric_infos: list[MetricInfo] = await self._save_metric_info_to_meta_db(meta_config)
