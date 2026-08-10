@@ -103,7 +103,7 @@ if __name__ == "__main__":
                     metric_qdrant_repository=MetricQdrantRepository(qd_client),
                 )
 
-            async for chunk in graph.astream(DataAgentState(query="上个月iPhone 15 pro的销量如何"),context=context, stream_mode="custom"):
+            async for chunk in graph.astream(DataAgentState(query="华北地区销售总额"),context=context, stream_mode="custom"):
                 print(chunk)
 
 

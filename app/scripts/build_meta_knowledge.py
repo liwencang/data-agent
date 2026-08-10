@@ -54,7 +54,6 @@ async def build(config_path: Path):
                 MetaMySQLRepository(meta_session),
                 ColumnQdrantRepository(qd_client),
                 MetricQdrantRepository(qd_client),
-                ValueESRepository(es_client),
                 embedding_client,
             )
             await meta_knowledge_service.build(config_path)
