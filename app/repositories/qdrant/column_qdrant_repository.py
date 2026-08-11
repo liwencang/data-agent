@@ -36,12 +36,13 @@ class ColumnQdrantRepository:
                 for id, embedding, payload in batch]
             await self.client.upsert(collection_name=self.coll_name,points=points)
 
-    async def search(self, keyword_embedding,limit=10) -> List[ColumnInfo]:
+    async def search(self,keyword_embedding,score: float = 0.6, limit=10) -> List[ColumnInfo]:
 
         result = await self.client.query_points(
             collection_name=self.coll_name,
             query=keyword_embedding,
             with_payload=True,
+            score_threshold=score,
             limit=limit,
         )
         points: List[ScoredPoint] = result.points
