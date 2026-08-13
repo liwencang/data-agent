@@ -1,6 +1,9 @@
-from typing import List
+from typing import List, Optional
+
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.log import logger
 from app.entities.column_info import ColumnInfo
 from app.entities.column_metric import ColumnMetric
 from app.entities.metric_info import MetricInfo
@@ -9,6 +12,9 @@ from app.mappers.column_info_mapper import ColumnInfoMapper
 from app.mappers.column_metric_mapper import ColumnMetricMapper
 from app.mappers.metric_info_mapper import MetricInfoMapper
 from app.mappers.table_info_mapper import TableInfoMapper
+from app.models import table_info_mysql
+from app.models.column_info_mysql import ColumnInfoMySQL
+from app.models.table_info_mysql import TableInfoMySQL
 
 
 class MetaMySQLRepository:
@@ -32,3 +38,27 @@ class MetaMySQLRepository:
     async def save_column_metric_info_to_meta_db(self, column_metrics: List[ColumnMetric]):
         column_metric_models = [ColumnMetricMapper.to_model(column_metric) for column_metric in column_metrics]
         self.session.add_all(column_metric_models)
+
+    async def get_column_info_by_id(self, metric_column_id):
+        stmt = select(ColumnInfoMySQL).where(ColumnInfoMySQL.id == metric_column_id)
+        result = await self.session.execute(stmt)
+        column_info = result.scalar_one_or_none()
+        if not column_info:
+            logger.warning("retrieved_metric信息中的字段不存在")
+        return column_info
+
+    async def get_key_column_by_table_id(self, table_id):
+        stmt = select(ColumnInfoMySQL).where(ColumnInfoMySQL.table_id == table_id,
+                                             ColumnInfoMySQL.role.in_(['primary_key', 'foreign_key']))
+        result = await self.session.execute(stmt)
+        column_mysql_infos = result.scalars().all()
+        column_infos = [ColumnInfoMapper.to_entity(column_mysql_info) for column_mysql_info in column_mysql_infos]
+        return column_infos
+
+    async def get_table_info_by_table_id(self, table_id):
+        stmt = select(TableInfoMySQL).where(TableInfoMySQL.id == table_id)
+        result = await self.session.execute(stmt)
+        table_info_mysql: TableInfoMySQL | None = result.scalar_one_or_none()
+        if table_info_mysql:
+            return TableInfoMapper.to_entity(table_info_mysql)
+        return None
