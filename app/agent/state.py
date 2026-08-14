@@ -35,6 +35,7 @@ class DataAgentState(TypedDict):
     retrieved_values: list[ValueInfo]  # 召回的值信息
     retrieved_metrics: list[MetricInfo]  # 召回的指标信息
 
+    table_infos: list[TableInfoState]
     metric_infos: list[MetricInfoStata] # 合并后的指标信息
 
     error: str

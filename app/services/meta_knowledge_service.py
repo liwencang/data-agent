@@ -41,15 +41,15 @@ class MetaKnowledgeService:
         meta_config: MetaConfig = OmegaConf.to_object(OmegaConf.merge(schema, context))
         # 2. 处理表格信息
         # 2.1 表、列信息存储到 mysql
-        # if meta_config.tables:
-        #     column_infos: List[ColumnInfo] = await self._save_table_info_to_meta_db(meta_config)
-        #     logger.info(f"批量保存表信息成功")
-        #     # 2.2 存储字段信息到qdrant
-        #     await self._save_column_info_to_qdrant(column_infos)
-        #     logger.info(f"为字段信息建立向量索引成功")
-        #     # 2.3 存储字段信息到es
-        #     await self._save_value_info_to_es(meta_config, column_infos)
-        #     logger.info(f"为字段取值建立全文索引成功 ")
+        if meta_config.tables:
+            column_infos: List[ColumnInfo] = await self._save_table_info_to_meta_db(meta_config)
+            logger.info(f"批量保存表信息成功")
+            # 2.2 存储字段信息到qdrant
+            await self._save_column_info_to_qdrant(column_infos)
+            logger.info(f"为字段信息建立向量索引成功")
+            # 2.3 存储字段信息到es
+            await self._save_value_info_to_es(meta_config, column_infos)
+            logger.info(f"为字段取值建立全文索引成功 ")
         if meta_config.metrics:
             # 3.1 将指标信息存入到meta元数据库
             metric_infos: list[MetricInfo] = await self._save_metric_info_to_meta_db(meta_config)
