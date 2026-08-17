@@ -54,4 +54,5 @@ class DataAgentState(TypedDict):
     metric_infos: list[MetricInfoStata] # 合并后的指标信息
 
     sql: str  # 生成的SQL语句
+
     error: str

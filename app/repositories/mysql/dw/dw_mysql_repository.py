@@ -18,6 +18,12 @@ class DWMySQLRepository:
         """获取数据库方言类型（如 mysql）"""
         return self.session.bind.dialect.name
 
+    async def validate_sql(self, sql: str) -> Result:
+        """使用EXPLAIN校验SQL语句合法性"""
+        explain_sql = f"EXPLAIN {sql}"
+        result: Result = await self.session.execute(text(explain_sql))
+        return result
+
 
 
     # async def get_column_values_by_table_id(self, table_id: str, column_name: str, limit: int = 10) -> list[str]:

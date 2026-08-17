@@ -9,8 +9,13 @@ async def validate_sql(state: DataAgentState, runtime: Runtime[DataAgentContext]
     writer = runtime.stream_writer
     writer({"type": "progress", "step": "校验SQL", "status": "running"})
     try:
-        pass
+        sql = state["sql"]
+        dw_mysql_repository = runtime.context.dw_mysql_repository
+        await dw_mysql_repository.validate_sql(sql)
+        writer({"type": "progress", "step": "校验SQL", "status": "success"})
+        logger.info("校验SQL成功")
+        return {"error": None}
     except Exception as e:
         writer({"type": "progress", "step": "校验SQL", "status": "error"})
         logger.error(f"校验SQL失败, 错误信息: {str(e)}")
-        raise
+        return {"error": str(e)}
