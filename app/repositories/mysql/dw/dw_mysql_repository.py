@@ -8,6 +8,16 @@ class DWMySQLRepository:
     def __init__(self, session: AsyncSession):
         self.session = session
 
+    async def get_db_version(self) -> str:
+        """查询数据库版本"""
+        sql = "SELECT VERSION()"
+        result: Result = await self.session.execute(text(sql))
+        return result.scalar_one()
+
+    def get_db_dialect(self) -> str:
+        """获取数据库方言类型（如 mysql）"""
+        return self.session.bind.dialect.name
+
 
 
     # async def get_column_values_by_table_id(self, table_id: str, column_name: str, limit: int = 10) -> list[str]:

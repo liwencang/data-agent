@@ -27,9 +27,24 @@ class TableInfoState(TypedDict):
     columns: list[ColumnInfoState]
 
 
+# 当前日期信息
+class DateInfoState(TypedDict):
+    date: str
+    weekday: str
+    quarter: str
+
+# 数据库信息
+class DBInfoState(TypedDict):
+    version: str
+    dialect: str
+
+
 class DataAgentState(TypedDict):
     query: str
     keywords: list[str]
+
+    date_info: DateInfoState  # 当前日期信息
+    db_info: DBInfoState  # 数据库信息
 
     retrieved_columns: list[ColumnInfo]  # 召回的字段信息
     retrieved_values: list[ValueInfo]  # 召回的值信息
