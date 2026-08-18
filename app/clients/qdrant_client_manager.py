@@ -23,7 +23,7 @@ class QdrantClientManager:
     async def close(self):
         if self.client:
             await self.client.close()
-
+qdrant_client_manager = QdrantClientManager(app_config.qdrant)
 
 if __name__ == "__main__":
     collection_name = "test_collection"

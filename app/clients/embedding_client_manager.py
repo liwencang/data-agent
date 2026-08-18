@@ -19,6 +19,7 @@ class EmbeddedClientManager:
             api_key=SecretStr("unused"),
             check_embedding_ctx_length=False,  # send raw text; TEI tokenizes server-side
         )
+embedding_client_manager = EmbeddedClientManager(app_config.embedding)
 
 if __name__ == "__main__":
     client = EmbeddedClientManager(app_config.embedding)

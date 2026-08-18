@@ -20,6 +20,7 @@ class ElasticsearchClientManager:
     async def close(self):
         if self.client:
             await self.client.close()
+es_client_manager = ElasticsearchClientManager(app_config.es)
 
 
 if __name__ == "__main__":

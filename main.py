@@ -5,8 +5,9 @@ from fastapi import FastAPI,Request
 
 from app.api.routers.query_routers import query_router
 from app.core.context import request_id_ctx_var
+from app.core.lifespan import lifespan
 
-app = FastAPI(title="掌柜问数")
+app = FastAPI(lifespan=lifespan,title="掌柜问数")
 
 # 定义HTTP中间件，用于记录请求处理耗时并添加到响应头中
 @app.middleware("http")
