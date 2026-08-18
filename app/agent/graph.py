@@ -103,7 +103,7 @@ if __name__ == "__main__":
                     metric_qdrant_repository=MetricQdrantRepository(qd_client),
                 )
 
-            async for chunk in graph.astream(DataAgentState(query="华北地区销售总额"),context=context, stream_mode="custom"):
+            async for chunk in graph.astream(DataAgentState(query="各个商品分类的销售情况"),context=context, stream_mode="custom"):
                 print(chunk)
 
 

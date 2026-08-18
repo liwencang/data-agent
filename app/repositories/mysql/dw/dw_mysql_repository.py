@@ -1,3 +1,6 @@
+import datetime
+from decimal import Decimal
+
 from sqlalchemy import text, Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -23,6 +26,25 @@ class DWMySQLRepository:
         explain_sql = f"EXPLAIN {sql}"
         result: Result = await self.session.execute(text(explain_sql))
         return result
+
+    async def execute_sql(self, sql: str) -> list[dict]:
+        """执行SQL查询，返回字段名到值的字典列表（JSON可序列化）"""
+        result: Result = await self.session.execute(text(sql))
+        rows = []
+        for row in result.mappings().all():
+            row_dict = {}
+            for key, value in row.items():
+                row_dict[key] = self._to_json_serializable(value)
+            rows.append(row_dict)
+        return rows
+
+    @staticmethod
+    def _to_json_serializable(value):
+        if isinstance(value, Decimal):
+            return float(value)
+        if isinstance(value, (datetime.datetime, datetime.date, datetime.time)):
+            return value.isoformat()
+        return value
 
 
 
