@@ -30,6 +30,7 @@ async def filter_metric(state: DataAgentState, runtime: Runtime[DataAgentContext
             if metric_info['name'] not in result:
                 metric_infos.remove(metric_info)
 
+        writer({"type": "progress", "step": "过滤指标信息", "status": "success"})
         logger.info(f"过滤后指标信息：{[metric_info['name'] for metric_info in metric_infos]}")
         return {"metric_infos": metric_infos}
 

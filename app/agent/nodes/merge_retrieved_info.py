@@ -96,7 +96,7 @@ async def merge_retrieved_info(state: DataAgentState, runtime: Runtime[DataAgent
                         alias=retrieved_metric.alias
                     )
                 )
-        writer({"type": "progress", "step": "合并信息", "status": "success"})
+        writer({"type": "progress", "step": "合并召回信息", "status": "success"})
         logger.info(f"合并信息，指标列表：{[metric_info["name"] for metric_info in retrieved_infos]}")
         return {"metric_infos": retrieved_infos, "table_infos": table_infos}
     except Exception as e:

@@ -35,7 +35,7 @@ async def filter_table(state: DataAgentState, runtime: Runtime[DataAgentContext]
             for column in table_info['columns'][:]:
                 if column['name'] not in selected_columns:
                     table_info['columns'].remove(column)
-
+        writer({"type": "progress", "step": "过滤表信息", "status": "success"})
         logger.info(f"过滤后表信息：{[table_info['name'] for table_info in table_infos]}")
         return {"table_infos": table_infos}
 

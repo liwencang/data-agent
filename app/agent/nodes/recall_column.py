@@ -46,7 +46,7 @@ async def recall_column(state:DataAgentState,runtime: Runtime[DataAgentContext])
             for column_info in column_infos:
                 if column_info.id not in retrieved_column_dict:
                     retrieved_column_dict[column_info.id] = column_info
-        writer({"type": "progress", "step": "召回字段", "status": "success"})
+        writer({"type": "progress", "step": "字段信息召回", "status": "success"})
         logger.info(f"召回字段成功：{list(retrieved_column_dict.keys())}")
 
         # 4. 结果写入到state
